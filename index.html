@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>☠️ fsociety CTF ☠️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background: #000;
+            color: #0f0;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Matrix Rain Effect */
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.15;
+        }
+
+        /* Scanline Effect */
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                transparent 50%,
+                rgba(0, 255, 0, 0.02) 51%
+            );
+            background-size: 100% 4px;
+            z-index: 1;
+            pointer-events: none;
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100vh); }
+        }
+
+        /* Container */
+        .container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+            font-size: 4rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin: 20px 0;
+            animation: glitch-skew 1s infinite;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff00ff;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #00ffff;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(10px, 9999px, 31px, 0); }
+            5% { clip: rect(70px, 9999px, 71px, 0); }
+            10% { clip: rect(40px, 9999px, 40px, 0); }
+            15% { clip: rect(90px, 9999px, 20px, 0); }
+            20% { clip: rect(60px, 9999px, 30px, 0); }
+            25% { clip: rect(20px, 9999px, 80px, 0); }
+            30% { clip: rect(50px, 9999px, 10px, 0); }
+            35% { clip: rect(30px, 9999px, 60px, 0); }
+            40% { clip: rect(80px, 9999px, 50px, 0); }
+            45% { clip: rect(10px, 9999px, 70px, 0); }
+            50% { clip: rect(70px, 9999px, 30px, 0); }
+            55% { clip: rect(20px, 9999px, 90px, 0); }
+            60% { clip: rect(60px, 9999px, 10px, 0); }
+            65% { clip: rect(40px, 9999px, 70px, 0); }
+            70% { clip: rect(80px, 9999px, 20px, 0); }
+            75% { clip: rect(30px, 9999px, 50px, 0); }
+            80% { clip: rect(50px, 9999px, 40px, 0); }
+            85% { clip: rect(70px, 9999px, 60px, 0); }
+            90% { clip: rect(10px, 9999px, 80px, 0); }
+            95% { clip: rect(90px, 9999px, 30px, 0); }
+            100% { clip: rect(40px, 9999px, 70px, 0); }
+        }
+
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 100px, 0); }
+            5% { clip: rect(25px, 9999px, 90px, 0); }
+            10% { clip: rect(85px, 9999px, 40px, 0); }
+            15% { clip: rect(15px, 9999px, 75px, 0); }
+            20% { clip: rect(55px, 9999px, 35px, 0); }
+            25% { clip: rect(95px, 9999px, 15px, 0); }
+            30% { clip: rect(35px, 9999px, 65px, 0); }
+            35% { clip: rect(75px, 9999px, 25px, 0); }
+            40% { clip: rect(45px, 9999px, 85px, 0); }
+            45% { clip: rect(5px, 9999px, 55px, 0); }
+            50% { clip: rect(65px, 9999px, 45px, 0); }
+            55% { clip: rect(85px, 9999px, 5px, 0); }
+            60% { clip: rect(25px, 9999px, 95px, 0); }
+            65% { clip: rect(15px, 9999px, 35px, 0); }
+            70% { clip: rect(55px, 9999px, 75px, 0); }
+            75% { clip: rect(95px, 9999px, 15px, 0); }
+            80% { clip: rect(45px, 9999px, 65px, 0); }
+            85% { clip: rect(75px, 9999px, 25px, 0); }
+            90% { clip: rect(35px, 9999px, 85px, 0); }
+            95% { clip: rect(5px, 9999px, 45px, 0); }
+            100% { clip: rect(65px, 9999px, 55px, 0); }
+        }
+
+        @keyframes glitch-skew {
+            0% { transform: skew(0deg); }
+            10% { transform: skew(-1deg); }
+            20% { transform: skew(1deg); }
+            30% { transform: skew(0deg); }
+            40% { transform: skew(1deg); }
+            50% { transform: skew(-1deg); }
+            60% { transform: skew(0deg); }
+            70% { transform: skew(1deg); }
+            80% { transform: skew(-1deg); }
+            90% { transform: skew(1deg); }
+            100% { transform: skew(0deg); }
+        }
+
+        /* Skull */
+        .skull {
+            font-size: 5rem;
+            margin: 20px 0;
+            animation: pulse 2s infinite;
+            filter: drop-shadow(0 0 20px #ff0000);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        /* Warning Box */
+        .warning-box {
+            border: 2px solid #0f0;
+            padding: 30px;
+            margin: 30px 0;
+            background: rgba(0, 255, 0, 0.05);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+            max-width: 800px;
+            position: relative;
+            animation: border-flicker 3s infinite;
+        }
+
+        @keyframes border-flicker {
+            0%, 100% { border-color: #0f0; box-shadow: 0 0 20px rgba(0, 255, 0, 0.3); }
+            50% { border-color: #0a0; box-shadow: 0 0 30px rgba(0, 255, 0, 0.5); }
+        }
+
+        .warning-box::before {
+            content: '⚠';
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            background: #000;
+            padding: 0 10px;
+            font-size: 1.5rem;
+            color: #ff0;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #0f0, 0 0 20px #0f0;
+        }
+
+        .recruit-text {
+            font-size: 1.5rem;
+            margin: 20px 0;
+            line-height: 1.8;
+            text-shadow: 0 0 5px #0f0;
+        }
+
+        /* Countdown - MEGA STYLÉ EN HAUT */
+        .countdown-top {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.95) 80%, rgba(0,0,0,0) 100%);
+            backdrop-filter: blur(10px);
+            padding: 30px 20px;
+            z-index: 1000;
+            border-bottom: 3px solid #ff0000;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.8), inset 0 0 50px rgba(255, 0, 0, 0.1);
+            animation: countdown-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes countdown-glow {
+            0%, 100% {
+                box-shadow: 0 0 50px rgba(255, 0, 0, 0.8), inset 0 0 50px rgba(255, 0, 0, 0.1);
+                border-bottom-color: #ff0000;
+            }
+            50% {
+                box-shadow: 0 0 80px rgba(255, 0, 0, 1), inset 0 0 80px rgba(255, 0, 0, 0.2);
+                border-bottom-color: #ff3333;
+            }
+        }
+
+        .countdown-title {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #ff0000;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000;
+            animation: title-flicker 3s infinite;
+        }
+
+        @keyframes title-flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+            60% { opacity: 1; }
+            61% { opacity: 0.9; }
+            62% { opacity: 1; }
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .time-unit {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 30px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #ff0000;
+            border-radius: 10px;
+            box-shadow:
+                0 0 30px rgba(255, 0, 0, 0.6),
+                inset 0 0 20px rgba(255, 0, 0, 0.1);
+            animation: unit-pulse 2s infinite;
+        }
+
+        .time-unit::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff0000, #ff6600, #ff0000);
+            border-radius: 10px;
+            opacity: 0.5;
+            z-index: -1;
+            animation: border-rotate 3s linear infinite;
+        }
+
+        @keyframes unit-pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 30px rgba(255, 0, 0, 0.6), inset 0 0 20px rgba(255, 0, 0, 0.1);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 50px rgba(255, 0, 0, 0.9), inset 0 0 30px rgba(255, 0, 0, 0.2);
+            }
+        }
+
+        @keyframes border-rotate {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+            100% { opacity: 0.3; }
+        }
+
+        .time-value {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #ff0000;
+            text-shadow:
+                0 0 10px #ff0000,
+                0 0 20px #ff0000,
+                0 0 30px #ff0000,
+                0 0 40px #ff0000,
+                0 0 70px #ff0000,
+                0 0 80px #ff0000;
+            line-height: 1;
+            letter-spacing: 5px;
+            animation: value-glow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes value-glow {
+            0%, 100% {
+                text-shadow:
+                    0 0 10px #ff0000,
+                    0 0 20px #ff0000,
+                    0 0 30px #ff0000,
+                    0 0 40px #ff0000;
+            }
+            50% {
+                text-shadow:
+                    0 0 20px #ff0000,
+                    0 0 30px #ff0000,
+                    0 0 40px #ff0000,
+                    0 0 50px #ff0000,
+                    0 0 70px #ff0000,
+                    0 0 80px #ff0000,
+                    0 0 100px #ff0000;
+            }
+        }
+
+        .time-label {
+            font-size: 0.9rem;
+            color: #0f0;
+            text-transform: uppercase;
+            margin-top: 10px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px #0f0;
+        }
+
+        .time-separator {
+            font-size: 4rem;
+            color: #ff0000;
+            font-weight: bold;
+            text-shadow: 0 0 20px #ff0000;
+            animation: separator-blink 1s infinite;
+        }
+
+        @keyframes separator-blink {
+            0%, 49%, 100% { opacity: 1; }
+            50%, 99% { opacity: 0.3; }
+        }
+
+        /* Adjust container for fixed countdown */
+        .container {
+            padding-top: 200px;
+        }
+
+        /* Explosion animation when countdown reaches 0 */
+        @keyframes explosion {
+            0%, 100% {
+                transform: scale(1);
+                text-shadow: 0 0 30px #ff0000, 0 0 60px #ff0000;
+            }
+            50% {
+                transform: scale(1.1);
+                text-shadow: 0 0 50px #ff0000, 0 0 100px #ff0000, 0 0 150px #ff0000;
+            }
+        }
+
+        /* Objective Box */
+        .objective {
+            margin: 40px 0;
+            padding: 20px;
+            border-left: 4px solid #ff00ff;
+            background: rgba(255, 0, 255, 0.05);
+            text-align: left;
+            max-width: 800px;
+        }
+
+        .objective h2 {
+            color: #ff00ff;
+            text-shadow: 0 0 10px #ff00ff;
+            margin-bottom: 15px;
+            font-size: 2rem;
+        }
+
+        .objective p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #0f0;
+        }
+
+        /* Terminal Effect */
+        .terminal-text {
+            font-size: 1.1rem;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #0f0;
+            text-align: left;
+            max-width: 800px;
+        }
+
+        .terminal-text::before {
+            content: '> ';
+            color: #0f0;
+        }
+
+        /* Typing Animation */
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .glitch {
+                font-size: 2rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .recruit-text {
+                font-size: 1.2rem;
+            }
+
+            .countdown {
+                gap: 10px;
+            }
+
+            .countdown-title {
+                font-size: 1rem;
+                letter-spacing: 2px;
+            }
+
+            .time-unit {
+                padding: 15px 20px;
+            }
+
+            .time-value {
+                font-size: 2.5rem;
+                letter-spacing: 2px;
+            }
+
+            .time-label {
+                font-size: 0.7rem;
+            }
+
+            .time-separator {
+                font-size: 2.5rem;
+            }
+
+            .warning-box {
+                padding: 20px;
+            }
+
+            .container {
+                padding-top: 250px;
+            }
+        }
+
+        /* Flicker Effect */
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .flicker {
+            animation: flicker 0.1s infinite;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix-canvas"></canvas>
+    <div class="scanline"></div>
+
+    <!-- COUNTDOWN ULTRA STYLÉ EN HAUT -->
+    <div class="countdown-top">
+        <div class="countdown-title">⚠️ LE CHALLENGE COMMENCE DANS ⚠️</div>
+        <div class="countdown" id="countdown">
+            <div class="time-unit">
+                <span class="time-value" id="days">00</span>
+                <span class="time-label">JOURS</span>
+            </div>
+            <span class="time-separator">:</span>
+            <div class="time-unit">
+                <span class="time-value" id="hours">00</span>
+                <span class="time-label">HEURES</span>
+            </div>
+            <span class="time-separator">:</span>
+            <div class="time-unit">
+                <span class="time-value" id="minutes">00</span>
+                <span class="time-label">MINUTES</span>
+            </div>
+            <span class="time-separator">:</span>
+            <div class="time-unit">
+                <span class="time-value" id="seconds">00</span>
+                <span class="time-label">SECONDES</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="skull">☠️</div>
+
+        <div class="glitch" data-text="ATTENTION CTF">ATTENTION CTF</div>
+
+        <div class="skull">☠️</div>
+
+        <div class="warning-box">
+            <h1>fsociety</h1>
+            <div class="recruit-text">
+                recrute<br>
+                <br>
+                qui<br>
+                sera<br>
+                capable<br>
+                de<br>
+                réussir<br>
+                le<br>
+                challenge ?
+            </div>
+        </div>
+
+        <div class="terminal-text">
+            [SYSTEM] Initialisation du challenge en cours...
+        </div>
+
+        <div class="objective">
+            <h2>📋 OBJECTIF DE LA MISSION</h2>
+            <p>
+                ⚡ Pas de flag traditionnel dans ce CTF.<br><br>
+                🎯 Votre mission : Réussir à écrire votre pseudo sur une page secrète qui sera révélée demain.<br><br>
+                💀 Seuls les meilleurs hackers de fsociety y parviendront.<br><br>
+                🔐 Préparez-vous... Le challenge commence le 10/01/2026 à 16:00.
+            </p>
+        </div>
+
+        <div class="terminal-text">
+            [SYSTEM] Are you ready to join fsociety?
+        </div>
+    </div>
+
+    <script>
+        // Matrix Rain Effect
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%01";
+        const matrixArray = matrix.split("");
+
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+
+        const drops = [];
+        for (let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#0F0";
+            ctx.font = fontSize + "px monospace";
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 35);
+
+        // Resize canvas on window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Countdown Timer
+        function updateCountdown() {
+            const targetDate = new Date('2026-01-10T16:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            // Si le compte à rebours est terminé, afficher 00:00:00:00
+            if (distance < 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // Random Glitch Effect on Text
+        setInterval(() => {
+            const elements = document.querySelectorAll('.warning-box, .objective, .terminal-text');
+            const randomElement = elements[Math.floor(Math.random() * elements.length)];
+            randomElement.classList.add('flicker');
+            setTimeout(() => {
+                randomElement.classList.remove('flicker');
+            }, 100);
+        }, 3000);
+    </script>
+</body>
+</html>
