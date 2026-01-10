@@ -219,7 +219,7 @@
             text-shadow: 0 0 5px #0f0;
         }
 
-        /* Countdown - MEGA STYLÉ EN HAUT */
+        /* Header - MEGA STYLÉ EN HAUT */
         .countdown-top {
             position: fixed;
             top: 0;
@@ -227,7 +227,7 @@
             width: 100%;
             background: linear-gradient(180deg, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.95) 80%, rgba(0,0,0,0) 100%);
             backdrop-filter: blur(10px);
-            padding: 30px 20px;
+            padding: 20px;
             z-index: 1000;
             border-bottom: 3px solid #ff0000;
             box-shadow: 0 0 50px rgba(255, 0, 0, 0.8), inset 0 0 50px rgba(255, 0, 0, 0.1);
@@ -247,11 +247,10 @@
 
         .countdown-title {
             text-align: center;
-            font-size: 1.5rem;
+            font-size: 2rem;
             color: #ff0000;
             text-transform: uppercase;
             letter-spacing: 5px;
-            margin-bottom: 15px;
             text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000;
             animation: title-flicker 3s infinite;
         }
@@ -264,155 +263,111 @@
             62% { opacity: 1; }
         }
 
-        .countdown {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
-        .time-unit {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px 30px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid #ff0000;
-            border-radius: 10px;
-            box-shadow:
-                0 0 30px rgba(255, 0, 0, 0.6),
-                inset 0 0 20px rgba(255, 0, 0, 0.1);
-            animation: unit-pulse 2s infinite;
-        }
-
-        .time-unit::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #ff0000, #ff6600, #ff0000);
-            border-radius: 10px;
-            opacity: 0.5;
-            z-index: -1;
-            animation: border-rotate 3s linear infinite;
-        }
-
-        @keyframes unit-pulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 0 0 30px rgba(255, 0, 0, 0.6), inset 0 0 20px rgba(255, 0, 0, 0.1);
-            }
-            50% {
-                transform: scale(1.05);
-                box-shadow: 0 0 50px rgba(255, 0, 0, 0.9), inset 0 0 30px rgba(255, 0, 0, 0.2);
-            }
-        }
-
-        @keyframes border-rotate {
-            0% { opacity: 0.3; }
-            50% { opacity: 0.7; }
-            100% { opacity: 0.3; }
-        }
-
-        .time-value {
-            font-size: 4rem;
-            font-weight: bold;
-            color: #ff0000;
-            text-shadow:
-                0 0 10px #ff0000,
-                0 0 20px #ff0000,
-                0 0 30px #ff0000,
-                0 0 40px #ff0000,
-                0 0 70px #ff0000,
-                0 0 80px #ff0000;
-            line-height: 1;
-            letter-spacing: 5px;
-            animation: value-glow 1.5s ease-in-out infinite;
-        }
-
-        @keyframes value-glow {
-            0%, 100% {
-                text-shadow:
-                    0 0 10px #ff0000,
-                    0 0 20px #ff0000,
-                    0 0 30px #ff0000,
-                    0 0 40px #ff0000;
-            }
-            50% {
-                text-shadow:
-                    0 0 20px #ff0000,
-                    0 0 30px #ff0000,
-                    0 0 40px #ff0000,
-                    0 0 50px #ff0000,
-                    0 0 70px #ff0000,
-                    0 0 80px #ff0000,
-                    0 0 100px #ff0000;
-            }
-        }
-
-        .time-label {
-            font-size: 0.9rem;
-            color: #0f0;
-            text-transform: uppercase;
-            margin-top: 10px;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px #0f0;
-        }
-
-        .time-separator {
-            font-size: 4rem;
-            color: #ff0000;
-            font-weight: bold;
-            text-shadow: 0 0 20px #ff0000;
-            animation: separator-blink 1s infinite;
-        }
-
-        @keyframes separator-blink {
-            0%, 49%, 100% { opacity: 1; }
-            50%, 99% { opacity: 0.3; }
-        }
-
-        /* Adjust container for fixed countdown */
+        /* Adjust container for fixed header */
         .container {
-            padding-top: 200px;
-        }
-
-        /* Explosion animation when countdown reaches 0 */
-        @keyframes explosion {
-            0%, 100% {
-                transform: scale(1);
-                text-shadow: 0 0 30px #ff0000, 0 0 60px #ff0000;
-            }
-            50% {
-                transform: scale(1.1);
-                text-shadow: 0 0 50px #ff0000, 0 0 100px #ff0000, 0 0 150px #ff0000;
-            }
+            padding-top: 150px;
         }
 
         /* Objective Box */
         .objective {
             margin: 40px 0;
-            padding: 20px;
-            border-left: 4px solid #ff00ff;
+            padding: 30px;
+            border: 2px solid #ff00ff;
             background: rgba(255, 0, 255, 0.05);
             text-align: left;
-            max-width: 800px;
+            max-width: 900px;
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.4);
         }
 
         .objective h2 {
             color: #ff00ff;
             text-shadow: 0 0 10px #ff00ff;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             font-size: 2rem;
         }
 
         .objective p {
             font-size: 1.2rem;
-            line-height: 1.6;
+            line-height: 2;
+            color: #0f0;
+        }
+
+        .objective a {
+            transition: all 0.3s ease;
+        }
+
+        .objective a:hover {
+            color: #00ff00;
+            text-shadow: 0 0 20px #00ffff, 0 0 30px #00ffff;
+        }
+
+        /* Hack Tips Box */
+        .hack-tips {
+            margin: 40px 0;
+            padding: 30px;
+            border: 2px solid #00ff00;
+            background: rgba(0, 255, 0, 0.05);
+            text-align: left;
+            max-width: 900px;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+        }
+
+        .hack-tips h2 {
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .hack-tips p {
+            font-size: 1.1rem;
+            line-height: 2;
+            color: #0f0;
+        }
+
+        /* Podium Box */
+        .podium-box {
+            margin: 40px 0;
+            padding: 30px;
+            border: 2px solid #ffdd00;
+            background: rgba(255, 221, 0, 0.05);
+            text-align: center;
+            max-width: 900px;
+            box-shadow: 0 0 30px rgba(255, 221, 0, 0.4);
+            animation: podium-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes podium-glow {
+            0%, 100% {
+                box-shadow: 0 0 30px rgba(255, 221, 0, 0.4);
+                border-color: #ffdd00;
+            }
+            50% {
+                box-shadow: 0 0 50px rgba(255, 221, 0, 0.6);
+                border-color: #ffee00;
+            }
+        }
+
+        .podium-box h2 {
+            color: #ffdd00;
+            text-shadow: 0 0 10px #ffdd00, 0 0 20px #ffdd00;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            animation: trophy-shine 2s ease-in-out infinite;
+        }
+
+        @keyframes trophy-shine {
+            0%, 100% {
+                text-shadow: 0 0 10px #ffdd00, 0 0 20px #ffdd00;
+            }
+            50% {
+                text-shadow: 0 0 20px #ffdd00, 0 0 40px #ffdd00, 0 0 60px #ffdd00;
+            }
+        }
+
+        .podium-box p {
+            font-size: 1.2rem;
+            line-height: 2;
             color: #0f0;
         }
 
@@ -456,38 +411,27 @@
                 font-size: 1.2rem;
             }
 
-            .countdown {
-                gap: 10px;
-            }
-
             .countdown-title {
-                font-size: 1rem;
+                font-size: 1.3rem;
                 letter-spacing: 2px;
-            }
-
-            .time-unit {
-                padding: 15px 20px;
-            }
-
-            .time-value {
-                font-size: 2.5rem;
-                letter-spacing: 2px;
-            }
-
-            .time-label {
-                font-size: 0.7rem;
-            }
-
-            .time-separator {
-                font-size: 2.5rem;
             }
 
             .warning-box {
                 padding: 20px;
             }
 
+            .objective, .hack-tips, .podium-box {
+                padding: 20px;
+                font-size: 1rem;
+            }
+
+            .objective p, .hack-tips p, .podium-box p {
+                font-size: 1rem;
+                line-height: 1.8;
+            }
+
             .container {
-                padding-top: 250px;
+                padding-top: 120px;
             }
         }
 
@@ -506,70 +450,78 @@
     <canvas id="matrix-canvas"></canvas>
     <div class="scanline"></div>
 
-    <!-- COUNTDOWN ULTRA STYLÉ EN HAUT -->
+    <!-- HEADER ULTRA STYLÉ EN HAUT -->
     <div class="countdown-top">
-        <div class="countdown-title">⚠️ LE CHALLENGE COMMENCE DANS ⚠️</div>
-        <div class="countdown" id="countdown">
-            <div class="time-unit">
-                <span class="time-value" id="days">00</span>
-                <span class="time-label">JOURS</span>
-            </div>
-            <span class="time-separator">:</span>
-            <div class="time-unit">
-                <span class="time-value" id="hours">00</span>
-                <span class="time-label">HEURES</span>
-            </div>
-            <span class="time-separator">:</span>
-            <div class="time-unit">
-                <span class="time-value" id="minutes">00</span>
-                <span class="time-label">MINUTES</span>
-            </div>
-            <span class="time-separator">:</span>
-            <div class="time-unit">
-                <span class="time-value" id="seconds">00</span>
-                <span class="time-label">SECONDES</span>
-            </div>
-        </div>
+        <div class="countdown-title">💀 LE CHALLENGE EST EN COURS 💀</div>
     </div>
 
     <div class="container">
         <div class="skull">☠️</div>
 
-        <div class="glitch" data-text="ATTENTION CTF">ATTENTION CTF</div>
+        <div class="glitch" data-text="fsociety CTF">fsociety CTF</div>
 
         <div class="skull">☠️</div>
 
         <div class="warning-box">
-            <h1>fsociety</h1>
+            <h1>Bienvenue, Hacker</h1>
             <div class="recruit-text">
-                recrute<br>
-                <br>
-                qui<br>
-                sera<br>
-                capable<br>
-                de<br>
-                réussir<br>
-                le<br>
-                challenge ?
+                Le test commence maintenant.<br>
+                Serez-vous à la hauteur ?
             </div>
         </div>
 
         <div class="terminal-text">
-            [SYSTEM] Initialisation du challenge en cours...
+            [SYSTEM] Challenge actif. Connexion établie...
         </div>
 
         <div class="objective">
-            <h2>📋 OBJECTIF DE LA MISSION</h2>
+            <h2>🎯 OBJECTIF DE LA MISSION</h2>
             <p>
-                ⚡ Pas de flag traditionnel dans ce CTF.<br><br>
-                🎯 Votre mission : Réussir à écrire votre pseudo sur une page secrète qui sera révélée demain.<br><br>
-                💀 Seuls les meilleurs hackers de fsociety y parviendront.<br><br>
-                🔐 Préparez-vous... Le challenge commence le 10/01/2026 à 16:00.
+                <strong style="color: #ff0000;">➤ Pas de flag traditionnel dans ce CTF.</strong><br><br>
+
+                <strong style="color: #0f0;">➤ Votre mission :</strong><br>
+                Ajouter votre pseudo en bas de cette page :<br>
+                <a href="https://fsociety.fr/end.php" target="_blank" style="color: #00ffff; text-decoration: underline; font-size: 1.3rem; text-shadow: 0 0 10px #00ffff;">https://fsociety.fr/end.php</a><br><br>
+
+                <strong style="color: #ff00ff;">➤ Les règles :</strong><br>
+                Il n'y a pas de règles. Carte blanche.<br>
+                Vous êtes libres d'utiliser toutes les techniques à votre disposition.<br><br>
+
+                <strong style="color: #ff0000;">⚠️ ATTENTION ⚠️</strong><br>
+                Si vous prenez le contrôle de la machine à distance :<br>
+                <span style="color: #ff0000; font-weight: bold;">NE DÉTRUISEZ PAS LE CTF.</span><br>
+                Laissez les autres hackers profiter du challenge.<br><br>
+
+                💀 Seuls les meilleurs de fsociety réussiront.
             </p>
         </div>
 
         <div class="terminal-text">
-            [SYSTEM] Are you ready to join fsociety?
+            [SYSTEM] Bonne chance, hacker. Vous en aurez besoin...
+        </div>
+
+        <div class="hack-tips">
+            <h2>💡 CONSEILS</h2>
+            <p>
+                ➤ Explorez toutes les possibilités<br>
+                ➤ Rien n'est impossible<br>
+                ➤ Pensez comme un hacker<br>
+                ➤ La créativité est votre meilleure arme<br>
+            </p>
+        </div>
+
+        <div class="podium-box">
+            <h2>🏆 PODIUM & VICTOIRE</h2>
+            <p>
+                <strong style="color: #ffdd00;">➤ Challenge terminé ?</strong><br><br>
+
+                Si vous avez réussi à ajouter votre pseudo sur la page finale,<br>
+                <strong style="color: #00ff00;">contactez-moi sur LinkedIn</strong> pour être ajouté au podium officiel !<br><br>
+
+                💀 Votre pseudo ou votre équipe sera affiché dans le hall of fame de fsociety.<br><br>
+
+                <a href="https://www.linkedin.com/in/tom-deprez-459175185/" style="color: #00ffff; font-size: 1.3rem;">📧 LinkedIn : Contactez l'organisateur</a>
+            </p>
         </div>
     </div>
 
@@ -618,38 +570,9 @@
             canvas.height = window.innerHeight;
         });
 
-        // Countdown Timer
-        function updateCountdown() {
-            const targetDate = new Date('2026-01-10T16:00:00').getTime();
-            const now = new Date().getTime();
-            const distance = targetDate - now;
-
-            // Si le compte à rebours est terminé, afficher 00:00:00:00
-            if (distance < 0) {
-                document.getElementById('days').textContent = '00';
-                document.getElementById('hours').textContent = '00';
-                document.getElementById('minutes').textContent = '00';
-                document.getElementById('seconds').textContent = '00';
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById('days').textContent = String(days).padStart(2, '0');
-            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
-        }
-
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-
         // Random Glitch Effect on Text
         setInterval(() => {
-            const elements = document.querySelectorAll('.warning-box, .objective, .terminal-text');
+            const elements = document.querySelectorAll('.warning-box, .objective, .terminal-text, .hack-tips, .podium-box');
             const randomElement = elements[Math.floor(Math.random() * elements.length)];
             randomElement.classList.add('flicker');
             setTimeout(() => {
